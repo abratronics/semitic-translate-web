@@ -22,21 +22,21 @@
             font-size: 1.2em;
         }
 
-	#arabicOutput {
-	    color: #AFEC23;
-	}
+        #arabicOutput {
+            color: #AFEC23;
+        }
 
-	#hebrewOutput {
-	    color: #36A5BB;
-	}
+        #hebrewOutput {
+            color: #36A5BB;
+        }
 
-	button {
-	   margin-bottom: 20px;
-	}
+        button {
+            margin-bottom: 20px;
+        }
 
-	#arabic, #hebrew {
-	    color:#29C12E
-	}
+        #arabic, #hebrew {
+            color:#29C12E
+        }
     </style>
 </head>
 <body>
@@ -53,15 +53,17 @@
 
     <h2>Arabic Translation:</h2>
     <p id="arabicOutput" style="font-size: 3.5em;"></p>
+    <button onclick="speak('arabicOutput')">Speak Arabic</button>
 
     <h2>Hebrew Translation:</h2>
     <p id="hebrewOutput" style="font-size: 3.5em;"></p>
+    <button onclick="speak('hebrewOutput')">Speak Hebrew</button>
    </div>
     <script>
         async function translateText() {
             const textInput = document.getElementById('textInput').value;
 
-	    // restricted per web domain
+            // restricted per web domain
             const apiKey = '***';
 
             // Show loading indicator
@@ -117,6 +119,14 @@
 
         function sleep(ms) {
             return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        // Function to speak the text of a specific element
+        function speak(elementId) {
+            const text = document.getElementById(elementId).textContent;
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = elementId === 'arabicOutput' ? 'ar-EG' : 'he-IL'; // Set language based on element
+            speechSynthesis.speak(utterance);
         }
     </script>
 
